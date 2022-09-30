@@ -1,7 +1,6 @@
 package com.rb.login.util;
 
 import cn.hutool.json.JSONObject;
-import org.springframework.stereotype.Component;
 
 public class JSONUtil {
 

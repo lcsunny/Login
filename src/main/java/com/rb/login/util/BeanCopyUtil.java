@@ -1,8 +1,6 @@
 package com.rb.login.util;
 
 import cn.hutool.core.bean.BeanUtil;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

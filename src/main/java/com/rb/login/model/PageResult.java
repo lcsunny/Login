@@ -16,4 +16,3 @@ public class PageResult<T> {
     private long totalRecords;
     private List<T> data;
 }
-

@@ -6,44 +6,41 @@ import com.rb.login.model.entity.Role;
 import com.rb.login.model.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
-
 public interface UserService extends UserDetailsService {
 
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException;
+    UserDetails loadUserByUsername(String userName);
 
-    public Integer save(User user);
+    Integer countLogin(String username,String tokenId);
 
-    public long countByUserName(String userName);
+    boolean checkLoginUser(String url,String tokenId,String method);
 
-    public User findByUserName(String userName);
+    void saveLogin(String username,String tokenId);
 
-    public User findById(Integer id);
+    void addLogin(String userName);
 
-    public List<User> findByPage();
+    void grantRole2User(Integer userId, List<Integer> roleIds);
 
-    public int count();
+    List<Role> findRoleByUserId(Integer userId);
 
-    public void delete(Integer userId);
+    List<Resource> findResourceByUserId(Integer userId);
 
-    public void grantRole2User(Integer userId, List<Integer> roleIds);
+    List<LoginRecord> findAllLoginInfo();
 
-    public List<Role> findRoleByUserId(Integer userId);
+    Integer save(User user);
 
-    public List<Resource> findResourceByUserId(Integer userId);
+    User findById(Integer id);
 
-    public boolean checkLoginUser(String url, String tokenId, String method);
+    User findByUserName(String userName);
 
-    public void saveLogin(String userName, String tokenId);
+    List<User> findByPage();
 
-    public void addLogin(String userName);
+    int count();
 
-    public Integer countLogin(String userName, String tokenId);
+    void delete(Integer userId);
 
-    public List<LoginRecord> findAllLoginInfo();
-
+    long countByUserName(String userName);
 
 }

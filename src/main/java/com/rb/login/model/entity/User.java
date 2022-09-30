@@ -1,11 +1,16 @@
 package com.rb.login.model.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class User {
     private Integer id;
-    private String userName;
-    private String password;
     private String phone;
+    private String password;
+    private String userName;
 }

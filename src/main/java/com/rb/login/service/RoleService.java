@@ -2,47 +2,27 @@ package com.rb.login.service;
 
 import com.rb.login.model.entity.Resource;
 import com.rb.login.model.entity.Role;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface RoleService {
-    /**
-     * 保存角色信息
-     *
-     * @param role
-     * @return
-     */
 
-    int save(@Param("role") Role role);
+    Role findById(Integer roleId);
 
-    /**
-     * 根据角色id获取角色详情
-     *
-     * @param id
-     * @return
-     */
-    Role findById(Integer id);
+    List<Resource> findResourceByRoleId(Integer roleId);
 
-    /**
-     * 根据角色id获取资源列表
-     *
-     * @param id
-     * @return
-     */
-    List<Resource> findResourceByRoleId(Integer id);
+    //保存角色信息
+    Integer saveInfo(Role role);
 
-    /**
-     * 查询所有的角色信息
-     *
-     * @return
-     */
+    //查询角色条数
+    Integer count();
+
+    //查询全部角色
     List<Role> findAll();
 
-    /**
-     * 删除角色
-     *
-     * @param id
-     */
-    void delete(Integer id);
+    //删除角色
+    void deleteById(Integer id);
+
+    //将资源授权给角色
+    void grantResource2Role(Integer roleId, List<Integer> resourceIds);
 }

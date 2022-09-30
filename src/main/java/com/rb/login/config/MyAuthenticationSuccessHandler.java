@@ -7,10 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -50,7 +48,7 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
         }else if (!StringUtils.equals(clientDetails.getClientSecret(),clientSecret)){
             throw new UnapprovedClientAuthenticationException("clientSecret 不匹配"+clientId);
         }
-        //密码授权 模式, 组建 authentication
+        //密码授权 模式，组建 authentication
         TokenRequest tokenRequest = new TokenRequest(new HashMap<String,String>(),clientId,clientDetails.getScope(),"password");
         OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
         OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request,authentication);
@@ -61,7 +59,7 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
         if(null != count && count > 0){
             log.info("用户："+username+"-"+" token:"+token.getValue()+"已经存在");
         }else{
-            //根据用户名称和tokenId保存 登录信息
+            //根据用户名称和tokenId保存登录信息
             userService.saveLogin(username,token.getValue());
         }
         //登录次数 +1

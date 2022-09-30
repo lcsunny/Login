@@ -7,4 +7,5 @@ public class LoginRecord {
     private Integer id;
     private String userName;
     private Integer count;
+    private String tokenId;
 }

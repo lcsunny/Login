@@ -1,6 +1,6 @@
 package com.rb.login.mapper;
 
-import com.rb.login.model.entity.RoleResource;
+import com.rb.login.model.entity.Resource;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -8,25 +8,10 @@ import java.util.List;
 
 @Mapper
 public interface RoleResourceMapper {
-    /**
-     * 保存
-     *
-     * @param roleResource
-     */
-    void save(@Param("roleResource") RoleResource roleResource);
 
-    /**
-     * 根据角色id查询角色对应的资源列表
-     *
-     * @param roleId
-     * @return
-     */
-    List<Integer> findByRoleId(@Param("roleId") Integer roleId);
+    void deleteByRoleId(Integer roleId);
 
-    /**
-     * 根据角色id删除该角色对应的资源授权
-     *
-     * @param roleId
-     */
-    void delete(@Param("roleId") Integer roleId);
+    void save(@Param("roleId") Integer roleId, @Param("resourceIds") List<Integer> resourceIds);
+
+    List<Resource> findResourceByRoleId(Integer roleId);
 }

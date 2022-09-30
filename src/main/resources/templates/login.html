@@ -35,10 +35,18 @@
             <input type="hidden" name="clientSecret" value="$2a$10$af9lXckfuaHRCO7vEOJcgOD9kXvZ5zXD4g/I6gFfd1mHfOifsaHIu"/>
             <button type="submit" class="btn btn-primary block full-width m-b" >登 录</button>
         </form>
+        <div>
+            <a id="gitLogin" href="" onclick="githubLogin()">github第三方登录</a>
+        </div>
     </div>
 </div>
 
 <script src="js/jquery.min.js?v=2.1.4"></script>
 <script src="js/common.js"></script>
+<script>
+    function githubLogin() {
+        $("#gitLogin").attr("href","https://github.com/login/oauth/authorize?client_id=03ca2c920d25f841a453&redirect_uri=http://127.0.0.1:8351/login/redirect");
+    }
+</script>
 </body>
 </html>

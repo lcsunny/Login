@@ -13,11 +13,15 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 public class AuthenticationInterceptor implements HandlerInterceptor {
+
     public static final String TOKEN_NAME = "access_token";
+
     private UserService userService;
+
     public AuthenticationInterceptor(UserService userService) {
         this.userService = userService;
     }
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if ("/".equals(request.getRequestURI())) {
@@ -65,8 +69,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         String tokenId = request.getHeader(TOKEN_NAME);
         return tokenId;
     }
+
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
     }
 }
-

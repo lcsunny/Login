@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class ResourceForm {
     private Integer id;
+    private String code;
     private String name;
     private String url;
-    private String code;
     private String method;
 }

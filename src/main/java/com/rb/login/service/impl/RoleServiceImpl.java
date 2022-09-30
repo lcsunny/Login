@@ -1,61 +1,86 @@
 package com.rb.login.service.impl;
 
-import com.rb.login.mapper.ResourceMapper;
+import com.rb.login.exception.BusinessException;
 import com.rb.login.mapper.RoleMapper;
 import com.rb.login.mapper.RoleResourceMapper;
-import com.rb.login.model.R;
 import com.rb.login.model.entity.Resource;
 import com.rb.login.model.entity.Role;
-import com.rb.login.model.entity.RoleResource;
+import com.rb.login.model.entity.User;
 import com.rb.login.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
 public class RoleServiceImpl implements RoleService {
+
     @Autowired
     private RoleMapper roleMapper;
+
     @Autowired
     private RoleResourceMapper roleResourceMapper;
-    @Autowired
-    private ResourceMapper resourceMapper;
 
     @Override
-    public int save(Role role) {
-        int roleId = roleMapper.save(role);
-        return roleId;
+    public Role findById(Integer roleId){
+        return roleMapper.findById(roleId);
     }
 
     @Override
-    public Role findById(Integer id) {
-        Role role = roleMapper.findById(id);
-        return role;
+    public List<Resource> findResourceByRoleId(Integer roleId){
+        return roleResourceMapper.findResourceByRoleId(roleId);
     }
 
     @Override
-    public List<Resource> findResourceByRoleId(Integer id) {
-        List<Integer> resourceIds = roleResourceMapper.findByRoleId(id);
-        List<Resource> resources= new ArrayList<>();
-        for(Integer resourceId : resourceIds){
-            resources.add(resourceMapper.findById(resourceId));
+    public Integer saveInfo(Role role){
+        if(null == role.getId()){
+            //新建
+            //验证名称是否重复
+            if(roleMapper.countByRoleName(role.getName()) > 0){
+                throw new BusinessException("角色名称重复");
+            }
+            roleMapper.save(role);
+        }else{
+            //修改
+            Role oldrole = roleMapper.findById(role.getId());
+            if(null == oldrole){
+                throw new BusinessException("角色信息不存在");
+            }
+            //当修改的名称和之前的名称不一样的时候，需要验证名称是否重复
+            if(!oldrole.getName().equals(role.getName())){
+                if(roleMapper.countByRoleName(role.getName()) > 0){
+                    throw new BusinessException("角色名称重复");
+                }
+            }
+            roleMapper.update(role);
         }
-        return resources;
+        log.info("id:"+role.getId());
+        return role.getId();
     }
 
     @Override
-    public List<Role> findAll() {
-        List<Role> roles = roleMapper.findAll();
-        return roles;
+    public List<Role> findAll(){
+        return roleMapper.findAll();
     }
 
     @Override
-    public void delete(Integer id) {
+    public Integer count(){
+        return 1;
+    }
+
+    @Override
+    public void deleteById(Integer id){
         roleMapper.delete(id);
+    }
+
+    @Override
+    public void grantResource2Role(Integer roleId, List<Integer> resourceIds){
+        //先删除该角色之前的资源
+        roleResourceMapper.deleteByRoleId(roleId);
+        //保存新资源
+        roleResourceMapper.save(roleId,resourceIds);
     }
 }

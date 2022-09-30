@@ -12,13 +12,12 @@ import java.util.Arrays;
 
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
+
     @Autowired
     private UserService userService;
 
-//    @Resource
-//    private AuthenticationInterceptor authenticationInterceptor;
-
-    private String exclusions = "/oauth2/**,/login,/oauth/token,/**/*.html,/**/*.js,/**/*.css,/**/*.jpg,/**/*.png,/**/*.ttf,/**/*.woff,/**/*.woff2";
+    /** 不验证权限的url */
+    private String exclusions = "/login/**,/data/**,/oauth/token,/**/*.html,/**/*.js,/**/*.css,/**/*.jpg,/**/*.png,/**/*.ttf,/**/*.woff,/**/*.woff2";
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
@@ -29,5 +28,4 @@ public class InterceptorConfig implements WebMvcConfigurer {
             interceptorRegistration.excludePathPatterns(Arrays.asList(array));
         }
     }
-
 }

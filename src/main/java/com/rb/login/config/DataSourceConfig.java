@@ -42,50 +42,49 @@ public class DataSourceConfig {
     private String poolPreparedStatements;
     @Value("${spring.datasource.maxPoolPreparedStatementPerConnectionSize}")
     private String maxPoolPreparedStatementPerConnectionSize;
-
     @Bean
     @Primary
-    public DataSource dataSource() {
+    public DataSource dataSource(){
         DruidDataSource datasource = new DruidDataSource();
         datasource.setUrl(this.dbUrl);
         datasource.setUsername(username);
         datasource.setPassword(password);
         datasource.setDriverClassName(driverClassName);
         //configuration
-        if (initialSize != null) {
+        if(initialSize != null) {
             datasource.setInitialSize(Integer.parseInt(initialSize));
         }
-        if (minIdle != null) {
+        if(minIdle != null) {
             datasource.setMinIdle(Integer.parseInt(minIdle));
         }
-        if (maxActive != null) {
+        if(maxActive != null) {
             datasource.setMaxActive(Integer.parseInt(maxActive));
         }
-        if (maxWait != null) {
+        if(maxWait != null) {
             datasource.setMaxWait(Integer.parseInt(maxWait));
         }
-        if (timeBetweenEvictionRunsMillis != null) {
+        if(timeBetweenEvictionRunsMillis != null) {
             datasource.setTimeBetweenEvictionRunsMillis(Integer.parseInt(timeBetweenEvictionRunsMillis));
         }
-        if (minEvictableIdleTimeMillis != null) {
+        if(minEvictableIdleTimeMillis != null) {
             datasource.setMinEvictableIdleTimeMillis(Integer.parseInt(minEvictableIdleTimeMillis));
         }
-        if (validationQuery != null) {
+        if(validationQuery!=null) {
             datasource.setValidationQuery(validationQuery);
         }
-        if (testWhileIdle != null) {
+        if(testWhileIdle != null) {
             datasource.setTestWhileIdle(Boolean.valueOf(testWhileIdle));
         }
-        if (testOnBorrow != null) {
+        if(testOnBorrow != null) {
             datasource.setTestOnBorrow(Boolean.valueOf(testOnBorrow));
         }
-        if (testOnReturn != null) {
+        if(testOnReturn != null) {
             datasource.setTestOnReturn(Boolean.valueOf(testOnReturn));
         }
-        if (poolPreparedStatements != null) {
+        if(poolPreparedStatements != null) {
             datasource.setPoolPreparedStatements(Boolean.valueOf(poolPreparedStatements));
         }
-        if (maxPoolPreparedStatementPerConnectionSize != null) {
+        if(maxPoolPreparedStatementPerConnectionSize != null) {
             datasource.setMaxPoolPreparedStatementPerConnectionSize(Integer.parseInt(maxPoolPreparedStatementPerConnectionSize));
         }
         return datasource;

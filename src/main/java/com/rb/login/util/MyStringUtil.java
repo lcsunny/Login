@@ -1,7 +1,6 @@
 package com.rb.login.util;
 
 import cn.hutool.core.util.StrUtil;
-import org.springframework.stereotype.Component;
 
 public class MyStringUtil {
 
